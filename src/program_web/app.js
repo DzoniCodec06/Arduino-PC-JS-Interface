@@ -2,6 +2,19 @@
 
 const { SerialPort, ReadlineParser } = require("serialport");
 
+// Declaring Variables
+
+// Command Field
+const commandField = document.getElementById("command");
+const commandBox = document.querySelector("#commandBox");
+
+// Answer Field
+const answerField = document.getElementById("answer");
+// Button
+const button = document.getElementById("btn");
+
+let port_conected = false;
+
 const port = new SerialPort({
     path: "/dev/ttyACM0",
     baudRate: 9600,
@@ -11,13 +24,44 @@ const port = new SerialPort({
     autoOpen: false
 });
 
+let interval;
+
 const parser = new ReadlineParser({ delimiter: "\r\n" });
 port.pipe(parser);
 
-port.open((err) => {
-    if (err) console.log("Error opening port: ", err.message);
-    else console.log(`Port is open ${port.path} at baud: ${port.baudRate}`);
-}); 
+function findPort() {
+    port.open((err) => {
+        if (err) portNotFound(err);
+        else portFound()
+    }); 
+}
+
+findPort();
+interval = setInterval(findPort, 2000);
+
+port.on("close", () => {
+    interval = setInterval(findPort, 2000);
+});
+
+
+function portNotFound(err) {
+    port_conected = false;
+    console.log("Error opening port: ", err.message);
+    commandField.disabled = true;
+    commandBox.classList.replace("command-box-enabled", "command-box-disabled");
+    button.disabled = true;
+    answerField.value = "Arduino not connected";
+}
+
+function portFound() {
+    port_conected = true;
+    console.log(`Port is open ${port.path} at baud: ${port.baudRate}`);
+    commandBox.classList.replace("command-box-disabled", "command-box-enabled");
+    commandField.disabled = false;
+    button.disabled = false;
+    clearInterval(interval);
+    answerField.value = "Arduino: "
+}
 
 // Send data to arduino
 
@@ -26,15 +70,6 @@ parser.on("data", data => {
     answerField.value = data;
 });
 
-
-
-// Declaring Variables
-// Command Field
-const commandField = document.getElementById("command");
-// Answer Field
-const answerField = document.getElementById("answer");
-// Button
-const button = document.getElementById("btn");
 
 // Function for sending command
 function sendCommand() {
@@ -47,7 +82,9 @@ function sendCommand() {
 button.addEventListener("click", sendCommand);
 
 document.addEventListener("keypress", e => {
-    if (e.key == "Enter") {
+    if (e.key == "Enter" && port_conected) {
         sendCommand();
+    } else {
+        console.log("Port not connected!");
     }
 });
