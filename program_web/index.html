@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicate Arduino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Napisi komandu “hello” da komuniciras sa Arduinom</h1>
+    </header>
+    <div class="input-side">
+        <div class="command-box-enabled" id="commandBox">
+            <input type="text" id="command" placeholder="Enter command...">
+            <button id="btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <div class="answer-box">
+            <input type="text" id="answer" disabled="yes" value="Arduino: ">
+            <p id="port">Port: <i>/dev/ttyACM0</i></p>
+        </div>
+    </div>
+</body>
+<script src="app.js"></script>
+</html>
