@@ -10,7 +10,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
 }
 
 header {
@@ -124,3 +124,4 @@ header h1 {
 .answer-box p {
     color: #fff;
 }
+
