@@ -1,5 +1,4 @@
 const { app, BrowserWindow } = require("electron");
-const path = require("path");
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -11,7 +10,6 @@ const createWindow = () => {
             nodeIntegration: true,
             contextIsolation: false,
             devTools: true,
-            //preload: path.join(__dirname, "preload.js")
         }
     });
 

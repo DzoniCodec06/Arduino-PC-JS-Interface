@@ -10,16 +10,16 @@
 </head>
 <body>
     <header>
-        <h1>Napisi komandu “hello” da komuniciras sa Arduinom</h1>
+        <h1>Write commands to comunicate with Arduino</h1>
     </header>
     <div class="input-side">
-        <div class="command-box">
+        <div class="command-box-enabled" id="commandBox">
             <input type="text" id="command" placeholder="Enter command...">
             <button id="btn"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
         <div class="answer-box">
             <input type="text" id="answer" disabled="yes" value="Arduino: ">
-            <p id="port">Port: <i>/dev/ttyACM0</i></p>
+            <p id="port">Port: </p>
         </div>
     </div>
 </body>
